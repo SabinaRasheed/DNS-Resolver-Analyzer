@@ -125,7 +125,7 @@ export default function App() {
         </div>
 
         <button
-          className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-lg transition-transform transform hover:scale-105"
+          className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-lg transition-transform transform hover:scale-105"
           onClick={handleQuery}
         >
           {loading ? "Querying..." : "Query DNS"}
@@ -254,9 +254,7 @@ export default function App() {
             </div>
           </motion.div>
         )}
-        <div className="mt-12">
           <Credits />
-        </div>
       </motion.div>
     </div>
   );
