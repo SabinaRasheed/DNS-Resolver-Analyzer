@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import Credits from "./Credits";
 
 const allRecordTypes = ["A", "AAAA", "MX", "NS", "CNAME"];
 
@@ -88,7 +89,7 @@ export default function App() {
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-4xl bg-[#1e293b] rounded-3xl shadow-2xl p-8 border border-gray-700 space-y-8"
+        className="w-full max-w-4xl bg-[#1e293b] rounded-3xl shadow-2xl p-8 border border-gray-700 space-y-8 flex flex-col items-center"
       >
         <h1 className="text-3xl font-bold text-center text-cyan-400">
           DNS Resolver & Query Analyzer
@@ -101,7 +102,7 @@ export default function App() {
           onChange={(e) => setDomain(e.target.value.trim())}
         />
 
-        <div>
+        <div className="w-full">
           <p className="font-semibold text-sm text-cyan-300 mb-2">
             Select Record Types:
           </p>
@@ -189,7 +190,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="bg-[#0f172a] rounded-xl p-4 border border-gray-600 mt-4"
+                className="bg-[#0f172a] rounded-xl p-4 border border-gray-600 mt-4 w-full"
               >
                 <h3 className="text-lg font-bold text-cyan-400 mb-1">{r.type} Record</h3>
                 {r.error ? (
@@ -226,13 +227,13 @@ export default function App() {
 
         {results.filter((r) => !r.error).length > 0 && (
           <motion.div
-            className="mt-10"
+            className="mt-10 w-full"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <h3 className="text-lg font-semibold text-cyan-400 mb-3">
-            Query Resolution Time
+              Query Resolution Time
             </h3>
             <div style={{ width: "100%", height: "300px", position: "relative" }}>
               <ResponsiveContainer width="100%" height="100%">
@@ -253,6 +254,9 @@ export default function App() {
             </div>
           </motion.div>
         )}
+        <div className="mt-12">
+          <Credits />
+        </div>
       </motion.div>
     </div>
   );
