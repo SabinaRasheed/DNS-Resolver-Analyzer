@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
-import { ClipLoader } from 'react-spinners';
+import { ClipLoader } from "react-spinners";
 import {
   LineChart,
   Line,
@@ -74,7 +74,9 @@ export default function App() {
       A: "IP address resolution failed.",
       AAAA: "IPv6 address not found.",
       MX: "Mail server not found.",
-      NS: "Nameserver lookup failed.",
+      NS: `Nameserver lookup failed as it is a subdomain of ${
+        domain.split(".")[1]
+      }.com`,
       CNAME: "Couldn’t retrieve CNAME records. Try again later.",
     };
     return map[type] || "No records found.";
@@ -111,7 +113,7 @@ export default function App() {
               <button
                 key={type}
                 onClick={() => toggleRecordType(type)}
-                className={`px-4 py-2 rounded-full border text-sm font-medium transition
+                className={`px-4 py-2 rounded-full border text-sm font-medium transition cursor-pointer
                   ${
                     selectedTypes.includes(type)
                       ? "bg-cyan-600 text-white border-cyan-400"
@@ -125,7 +127,7 @@ export default function App() {
         </div>
 
         <button
-          className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-lg transition-transform transform hover:scale-105"
+          className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl cursor-pointer shadow-lg transition-transform transform hover:scale-105"
           onClick={handleQuery}
         >
           {loading ? "Querying..." : "Query DNS"}
@@ -153,7 +155,9 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <h3 className="text-lg font-semibold text-cyan-400 mb-2">🌐 How Your Query Was Resolved</h3>
+              <h3 className="text-lg font-semibold text-cyan-400 mb-2">
+                🌐 How Your Query Was Resolved
+              </h3>
               <motion.div
                 className="flex flex-wrap justify-center gap-2"
                 initial="hidden"
@@ -173,7 +177,10 @@ export default function App() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    {hop} {i < traceInfo.length - 1 && <span className="mx-1">→</span>}
+                    {hop}{" "}
+                    {i < traceInfo.length - 1 && (
+                      <span className="mx-1">→</span>
+                    )}
                   </motion.div>
                 ))}
               </motion.div>
@@ -192,7 +199,9 @@ export default function App() {
                 exit={{ opacity: 0 }}
                 className="bg-[#0f172a] rounded-xl p-4 border border-gray-600 mt-4 w-full"
               >
-                <h3 className="text-lg font-bold text-cyan-400 mb-1">{r.type} Record</h3>
+                <h3 className="text-lg font-bold text-cyan-400 mb-1">
+                  {r.type} Record
+                </h3>
                 {r.error ? (
                   <div className="flex items-center text-red-400">
                     <svg
@@ -235,12 +244,29 @@ export default function App() {
             <h3 className="text-lg font-semibold text-cyan-400 mb-3">
               Query Resolution Time
             </h3>
-            <div style={{ width: "100%", height: "300px", position: "relative" }}>
+            <div
+              style={{ width: "100%", height: "300px", position: "relative" }}
+            >
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={results.filter((r) => !r.error)}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="type" stroke="#ccc" label={{ value: "Record Type", position: "insideBottomRight" }} />
-                  <YAxis stroke="#ccc" label={{ value: "Time (ms)", angle: -90, position: "insideLeft" }} />
+                  <XAxis
+                    dataKey="type"
+                    stroke="#ccc"
+                    label={{
+                      value: "Record Type",
+                      position: "insideBottomRight",
+                    }}
+                  />
+                  <YAxis
+                    stroke="#ccc"
+                    label={{
+                      value: "Time (ms)",
+                      angle: -90,
+                      position: "insideLeft",
+                    }}
+                    domain={[0, 1200]}
+                  />
                   <Tooltip />
                   <Legend />
                   <Line
@@ -254,7 +280,7 @@ export default function App() {
             </div>
           </motion.div>
         )}
-          <Credits />
+        <Credits />
       </motion.div>
     </div>
   );
