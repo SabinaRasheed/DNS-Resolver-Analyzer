@@ -74,9 +74,7 @@ export default function App() {
       A: "IP address resolution failed.",
       AAAA: "IPv6 address not found.",
       MX: "Mail server not found.",
-      NS: `Nameserver lookup failed as it is a subdomain of ${
-        domain.split(".")[1]
-      }.com`,
+      NS: "Nameserver lookup failed",
       CNAME: "Couldn’t retrieve CNAME records. Try again later.",
     };
     return map[type] || "No records found.";
