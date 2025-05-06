@@ -19,9 +19,7 @@ const resolvers = {
   AAAA: resolve6,
   MX: async (domain) => {
     const mx = await resolveMx(domain);
-    return mx.map(
-      (entry) => `${entry.exchange} (Priority: ${entry.priority})`
-    );
+    return mx.map((entry) => `${entry.exchange} (Priority: ${entry.priority})`);
   },
   NS: resolveNs,
   CNAME: resolveCname,

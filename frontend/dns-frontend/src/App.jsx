@@ -74,7 +74,7 @@ export default function App() {
       A: "IP address resolution failed.",
       AAAA: "IPv6 address not found.",
       MX: "Mail server not found.",
-      NS: "Nameserver lookup failed",
+      NS: "Nameserver lookup failed.",
       CNAME: "Couldn’t retrieve CNAME records. Try again later.",
     };
     return map[type] || "No records found.";
@@ -111,7 +111,7 @@ export default function App() {
               <button
                 key={type}
                 onClick={() => toggleRecordType(type)}
-                className={`px-4 py-2 rounded-full border text-sm font-medium transition cursor-pointer
+                className={`px-4 py-2 rounded-full border text-sm font-medium transition
                   ${
                     selectedTypes.includes(type)
                       ? "bg-cyan-600 text-white border-cyan-400"
@@ -125,7 +125,7 @@ export default function App() {
         </div>
 
         <button
-          className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl cursor-pointer shadow-lg transition-transform transform hover:scale-105"
+          className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-lg transition-transform transform hover:scale-105"
           onClick={handleQuery}
         >
           {loading ? "Querying..." : "Query DNS"}
@@ -263,7 +263,6 @@ export default function App() {
                       angle: -90,
                       position: "insideLeft",
                     }}
-                    domain={[0, 1200]}
                   />
                   <Tooltip />
                   <Legend />
